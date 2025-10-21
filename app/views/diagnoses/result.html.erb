@@ -1,0 +1,17 @@
+<h2>診断結果</h2>
+
+<p><strong>タイプ:</strong> <%= @result[:type] %></p>
+<p><%= @result[:description] %></p>
+
+<h3>おすすめの産地</h3>
+<ul>
+  <% @result[:beans].each do |bean| %>
+    <li>
+      <strong><%= bean.name %></strong>  
+      （酸味:<%= bean.acidity %>, 苦味:<%= bean.bitterness %>, コク:<%= bean.body %>）  
+      — 風味タイプ: <%= bean.flavor %>
+    </li>
+  <% end %>
+</ul>
+
+<%= link_to "もう一度診断する", new_diagnosis_path, class: "btn btn-secondary" %>

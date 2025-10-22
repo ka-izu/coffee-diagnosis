@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   # Defines the root path route ("/")
-  root "diagnoses#new"
-  resources :diagnoses, only: [ :new, :create ]
+  root "diagnoses#question"
+  get "diagnoses/question", to: "diagnoses#question"
+  post "diagnoses/question", to: "diagnoses#question"
+  post "diagnoses/result", to: "diagnoses#result"
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

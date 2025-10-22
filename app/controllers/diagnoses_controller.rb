@@ -1,9 +1,9 @@
 class DiagnosesController < ApplicationController
-  def new
+  def question
   end
 
-  def create
+  def result
     @result = DiagnosisLogic.diagnose(params)
-    render :result
+    # render :result
   end
 end

@@ -1,0 +1,81 @@
+
+<div class="max-w-xl mx-auto mt-10">
+  <h2 class="text-2xl font-bold mb-2 text-center">コーヒー診断</h2>
+  <p class="mb-6 text-center">あなたの好みを選んでください。</p>
+
+  <div class="w-full bg-gray-200 rounded-full h-2.5 mb-8">
+    <div data-diagnosis-target="bar" class="bg-blue-500 h-2.5 rounded-full transition-all duration-300" style="width: 25%"></div>
+  </div>
+
+  <%= form_with url: diagnoses_result_path,
+                method: :post,
+                local: true,
+                html: { "data-controller": "diagnosis",
+                        "data-turbo": "false",
+                        "data-diagnosis-current-value": 0,
+                        "data-diagnosis-total-value": 4 } do |f| %>
+    <div data-diagnosis-target="card" class="bg-white rounded-lg shadow-md p-6 mb-4">
+      <h3 class="text-lg font-semibold mb-4">① 酸味はどのくらい好きですか？</h3>
+      <div class="space-y-2">
+        <label class="flex items-center cursor-pointer">
+          <%= f.radio_button :acidity, 5, class: "mr-2" %> 強い酸味が好き
+        </label>
+        <label class="flex items-center cursor-pointer">
+          <%= f.radio_button :acidity, 3, class: "mr-2" %> 少しあると良い
+        </label>
+        <label class="flex items-center cursor-pointer">
+          <%= f.radio_button :acidity, 1, class: "mr-2" %> 酸味は苦手
+        </label>
+      </div>
+      <button class="mt-6 w-full py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-600 transition" data-action="click->diagnosis#next">次へ</button>
+    </div>
+
+    <div data-diagnosis-target="card" class="bg-white rounded-lg shadow-md p-6 mb-4 hidden">
+      <h3 class="text-lg font-semibold mb-4">② 苦味はどのくらい好きですか？</h3>
+      <div class="space-y-2">
+        <label class="flex items-center cursor-pointer">
+          <%= f.radio_button :bitterness, 5, class: "mr-2" %> しっかり苦い方が好き
+        </label>
+        <label class="flex items-center cursor-pointer">
+          <%= f.radio_button :bitterness, 3, class: "mr-2" %> 少し苦いくらいが良い
+        </label>
+        <label class="flex items-center cursor-pointer">
+          <%= f.radio_button :bitterness, 1, class: "mr-2" %> 苦味は控えめが良い
+        </label>
+      </div>
+      <button class="mt-6 w-full py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-600 transition" data-action="click->diagnosis#next">次へ</button>
+    </div>
+
+    <div data-diagnosis-target="card" class="bg-white rounded-lg shadow-md p-6 mb-4 hidden">
+      <h3 class="text-lg font-semibold mb-4">③ 飲み口の印象としてどちらが好みですか？</h3>
+      <div class="space-y-2">
+        <label class="flex items-center cursor-pointer">
+          <%= f.radio_button :body, 2, class: "mr-2" %> 軽くてすっきり
+        </label>
+        <label class="flex items-center cursor-pointer">
+          <%= f.radio_button :body, 3, class: "mr-2" %> バランスが取れている
+        </label>
+        <label class="flex items-center cursor-pointer">
+          <%= f.radio_button :body, 5, class: "mr-2" %> まろやかでコクがある
+        </label>
+      </div>
+      <button class="mt-6 w-full py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-600 transition" data-action="click->diagnosis#next">次へ</button>
+    </div>
+
+    <div data-diagnosis-target="card" class="bg-white rounded-lg shadow-md p-6 mb-4 hidden">
+      <h3 class="text-lg font-semibold mb-4">④ 香り・風味で惹かれるのはどれですか？</h3>
+      <div class="space-y-2">
+        <label class="flex items-center cursor-pointer">
+          <%= f.radio_button :flavor, "fruity", class: "mr-2" %> フルーティ・華やか
+        </label>
+        <label class="flex items-center cursor-pointer">
+          <%= f.radio_button :flavor, "chocolate", class: "mr-2" %> チョコやナッツの香ばしさ
+        </label>
+        <label class="flex items-center cursor-pointer">
+          <%= f.radio_button :flavor, "balanced", class: "mr-2" %> 特にこだわらない
+        </label>
+      </div>
+      <%= f.submit "診断する", class: "mt-6 w-full py-2 px-4 bg-green-500 text-white rounded hover:bg-green-600 transition" %>
+    </div>
+  <% end %>
+</div>

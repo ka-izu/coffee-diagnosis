@@ -1,35 +1,25 @@
 
 import { Controller } from "@hotwired/stimulus"
 
-export default class extends Controller {
-  static targets = ["card", "bar"]
+  export default class extends Controller {
+  static targets = ["card", "submit"]
   static values = { current: Number, total: Number }
 
-  connect() {
-    this.showCurrentCard()
-    this.updateBar()
-  }
-
-  
   next(event) {
     event.preventDefault()
-    if (this.currentValue < this.totalValue - 1) {
-      this.currentValue++
-      this.showCurrentCard()
-      this.updateBar()
+
+    // 現在のカードを非表示
+    this.cardTargets[this.currentValue].classList.add("hidden")
+
+    // 次へ
+    this.currentValue++
+
+    // まだ次があれば表示
+    if (this.currentValue < this.totalValue) {
+      this.cardTargets[this.currentValue].classList.remove("hidden")
     } else {
-      this.element.submit()
+      // 最後の質問なら送信ボタン表示
+      this.submitTarget.classList.remove("hidden")
     }
-  }
-
-  showCurrentCard() {
-    this.cardTargets.forEach((el, i) => {
-      el.classList.toggle("hidden", i !== this.currentValue)
-    })
-  }
-
-  updateBar() {
-    const percent = ((this.currentValue + 1) / this.totalValue) * 100
-    this.barTarget.style.width = percent + "%"
   }
 }
